@@ -1,0 +1,6 @@
+2.    1.    0
+major minor patch
+
+patch - correção de bugs
+minor - add um recurso novo sem mexer no pacote todo
+major - mudança radical, muda tudo
