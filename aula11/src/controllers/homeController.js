@@ -1,7 +1,7 @@
 /**
  * Controla o que será enviado/exibido em cada Rota da aplicação.
  */
- exports.paginaInicial = (req, res) => {
+exports.paginaInicial = (req, res) => {
     res.render('index');
     return;
 }
