@@ -15,7 +15,29 @@ mongoose.connect(process.env.CONNECTIONSTRING, {useNewUrlParser: true, useUnifie
     }).catch(e => console.log(e));
     
 
+/**
+ * SESSÃO
+ */
+const session = require('express-session'); // Salva a sessão na memoria do navegador.
+const MongoStore = require('connect-mongo')(session); // Armazenamento de sessão do MongoDB para Connect e Express.
+const flash = require('connect-flash'); // O flash é uma área especial da sessão usada para armazenar mensagens. As mensagens são gravadas no flash e apagadas após serem exibidas ao usuário.
 
+/**
+ * Criando SESSÃO
+ */
+const sessionOptions = session({
+    secret: 'asadasdjoasjdoaj',
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7, // em sete dias 
+        httpOnly: true
+    }
+});
+
+app.use(sessionOptions);
+app.use(flash());
 
 /**
  * Importa as rotas da aplicação.
@@ -23,6 +45,7 @@ mongoose.connect(process.env.CONNECTIONSTRING, {useNewUrlParser: true, useUnifie
 const routes = require('./routes');
 const path = require('path');
 const { middlewareGlobal } = require('./src/middlewares/middleware');
+
 
 app.use(express.urlencoded({ extended: true })); // Para que possamos ver a body da requisição do tipo post.
 app.use(express.static(path.resolve(__dirname, 'public'))); // Conteúdo estático
