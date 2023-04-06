@@ -3,7 +3,7 @@
 
     <section class="container">
         <h1>
-            <%= umaVariavelLocal %>
+            <%= csrfToken %>
 
         </h1>
 
@@ -11,6 +11,7 @@
             <%= num %>
                 <% }); %>
                     <form action="/" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <label>Cliente</label>
                         <input type="text" name="cliente">
                         <button>Submit</button>

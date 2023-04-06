@@ -1,5 +1,12 @@
 /*
  * Para criar os models precisamos conectar com a base de dados.
  * Instalar o moogosee para modelar nossa base de dados.
- *
+ * Helmet - Helmet é um middleware Express. O Helmet ajuda você a proteger seus aplicativos Express definindo vários cabeçalhos HTTP. Não é uma bala de prata, mas pode ajudar!
+ * CSRFTOKEN - A proteção classicamente utilizada nos formulários é a de criar um campo oculto com um token único por usuário. 
+ * Esse token fica salvo na sessão do usuário no servidor e, quando o formulário é postado, o token enviado pelo formulário é comparado com o que se tem na sessão, lá no servidor.
  */
+
+ // IMPORTANTE:
+    O Helmet é para segurança da aplicação, portanto, caso você esteja com um sistema ainda em desenvolvimento, usando urls como "127.0.0.1", "localhost" ou até um servidor com IP externo, sem usar SSL (https), é recomendável desativá-lo. Ele pode bloquear importação de scripts e arquivos de CSS.
+    Caso ocorra erros ao importar o bundle.js, arquivos de CDN (como bootstrap, por exemplo) ou CSS, basta desativar o helmet para correção.
+    Isso só ocorrerá em sistemas sem SSL (sem https na URL).

@@ -44,9 +44,13 @@ app.use(flash());
  */
 const routes = require('./routes');
 const path = require('path');
-const { middlewareGlobal } = require('./src/middlewares/middleware');
+const helmet = require('helmet');
+const csrf = require('csurf');
+const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
 
 
+
+app.use(helmet());
 app.use(express.urlencoded({ extended: true })); // Para que possamos ver a body da requisição do tipo post.
 app.use(express.static(path.resolve(__dirname, 'public'))); // Conteúdo estático
 
@@ -56,10 +60,15 @@ app.use(express.static(path.resolve(__dirname, 'public'))); // Conteúdo estáti
 app.set('views', path.resolve(__dirname, 'src', 'views')); // Path absoluto de views.
 app.set('view engine', 'ejs'); // Para renderizar for, if e outros nos views.
 
+app.use(csrf());
+
+
 /**
  * Middlewares
  */
 app.use(middlewareGlobal);
+app.use(checkCsrfError);
+app.use(csrfMiddleware);
 app.use(routes);
 
 app.on('pronto', () => {
